@@ -215,13 +215,35 @@
         reg1 = "#" + RegExp.$1;
         reg2 = "#" + RegExp.$2;
         toggleTarget = $(reg2).removeClass("chkrequired");
-        $(reg1).click(function() {
-          console.log(toggleTarget);
-          if ( this.checked ) {
-            toggleTarget.addClass("chkrequired");
-          } else {
-            toggleTarget.removeClass("chkrequired");
+		clickTarget = $(reg1);
+		type = $(reg1).attr('type');
+
+        inputs.find('input').each(function(){
+          if($(this).attr('name') == $(reg1).attr('name')){
+            var targetName = $(this).attr('name');
+            targetName = targetName.replace('[','\\[').replace(']','\\]');
+            clickTarget = $('input[name='+targetName+']');
           }
+        });
+
+        clickTarget.click(function(){
+          if ('#'+$(this).attr('id') == reg1) {
+            if($(this).attr('type') == 'checkbox'){
+              if(this.checked){
+                toggleTarget.addClass("chkrequired");
+              } else {
+                toggleTarget.removeClass("chkrequired");
+              }
+            } else {
+              toggleTarget.addClass("chkrequired");
+            }
+          } else {
+            if($(this).attr('type') == 'checkbox'){
+            } else {
+              toggleTarget.removeClass("chkrequired");
+            }
+          }
+
           _this.laterCall(toggleTarget);
         });
       }
