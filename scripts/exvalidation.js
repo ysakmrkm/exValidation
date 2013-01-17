@@ -235,16 +235,29 @@
                 toggleTarget.removeClass("chkrequired");
               }
             } else {
-              toggleTarget.addClass("chkrequired");
+              if($('input[type=checkbox]',toggleTarget).length !== 0){
+                toggleTarget.attr('class',"chkcheckbox "+toggleTarget.attr('class'));
+              } else if($('input[type=radio]',toggleTarget).length !== 0){
+                toggleTarget.attr('class',"chkradio "+toggleTarget.attr('class'));
+              } else {
+                toggleTarget.attr('class',"chkrequired "+toggleTarget.attr('class'));
+              }
             }
           } else {
             if($(this).attr('type') == 'checkbox'){
             } else {
-              toggleTarget.removeClass("chkrequired");
+              if($('input[type=checkbox]',toggleTarget).length !== 0){
+                toggleTarget.removeClass("chkcheckbox");
+              } else if($('input[type=radio]',toggleTarget).length !== 0){
+                toggleTarget.removeClass("chkradio");
+              } else {
+                toggleTarget.removeClass("chkrequired");
+              }
             }
           }
 
           _this.laterCall(toggleTarget);
+          bindValidateFuncs(toggleTarget);
         });
       }
 
