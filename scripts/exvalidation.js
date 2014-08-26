@@ -480,7 +480,11 @@
             $("."+c, "#err_"+id).show();
             $("#err_"+id).stop(true, true).fadeIn();
             _this.insertErrMsg(t, id, c, _this.conf.errMsgPrefix + msg);
-            _this.getErrHeight(id);
+            if ( fnConfirmation(_this.conf.customGetErrHeight) ) {
+              _this.conf.customGetErrHeight(id);
+            } else {
+              _this.getErrHeight(id);
+            }
           }
           this.isError = true;
         }
@@ -500,7 +504,11 @@
             if ( _this.conf.stepValidation ) {
               if ( $(".errMsg:visible", "#err_"+id).length > 1 ) {
                 $("."+c, "#err_"+id).hide();
-                _this.getErrHeight(id);
+                if ( fnConfirmation(_this.conf.customGetErrHeight) ) {
+                  _this.conf.customGetErrHeight(id);
+                } else {
+                  _this.getErrHeight(id);
+                }
               }
             }
           } else {
@@ -510,7 +518,11 @@
             if ( _this.conf.stepValidation ) {
               if ( $(".errMsg:visible", "#err_"+id).length > 1 ) {
                 $("."+c, "#err_"+id).hide();
-                _this.getErrHeight(id);
+                if ( fnConfirmation(_this.conf.customGetErrHeight) ) {
+                  _this.conf.customGetErrHeight(id);
+                } else {
+                  _this.getErrHeight(id);
+                }
               }
             }
           }
