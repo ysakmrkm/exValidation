@@ -51,7 +51,7 @@
           callback: function() {}
         }
       */
-      customGetErrHeight  : null,
+      customGetErrHeight  : null, // function(){}
       firstValidate       : false,
       // default checking targets
       inputs: [
@@ -185,7 +185,7 @@
         }
         if ( conf.errPosition === "absolute" ) {
           if ( fnConfirmation(conf.customGetErrHeight) ) {
-            _this.customGetErrHeight(id);
+            conf.customGetErrHeight(id);
           } else {
             _this.getErrHeight(id, conf.errZIndex);
           }
@@ -193,7 +193,7 @@
           // Reget the position
           $(window).resize(function() {
             if ( fnConfirmation(conf.customGetErrHeight) ) {
-              _this.customGetErrHeight(id);
+              conf.customGetErrHeight(id);
             } else {
               _this.getErrHeight(id, conf.errZIndex);
             }
