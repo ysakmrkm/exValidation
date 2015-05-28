@@ -20,7 +20,7 @@
     // for browse
     var _this = this,
       b = $("body");
-    
+
     conf = this.conf = $.extend({
       errInsertPos       : "body", // "body" or after(before)
       err                : null,
@@ -185,7 +185,7 @@
         }
         if ( conf.errPosition === "absolute" ) {
           if ( fnConfirmation(conf.customGetErrHeight) ) {
-            conf.customGetErrHeight(id);
+            conf.customGetErrHeight(id, conf.errZIndex);
           } else {
             _this.getErrHeight(id, conf.errZIndex);
           }
@@ -193,7 +193,7 @@
           // Reget the position
           $(window).resize(function() {
             if ( fnConfirmation(conf.customGetErrHeight) ) {
-              conf.customGetErrHeight(id);
+              conf.customGetErrHeight(id, conf.errZIndex);
             } else {
               _this.getErrHeight(id, conf.errZIndex);
             }
@@ -372,7 +372,7 @@
     // Return the instance
     return this;
   };
-  
+
   // Common prototype functions
   exValidation.prototype = {
     // Errtip content
@@ -424,19 +424,19 @@
         err = $("#err_"+id),
         target = input.is(":hidden") ? input.next() : input,
         pos = target.offset();
-      
+
       if ( !!pos ) {
         var left = target.hasClass("errPosRight")
             ? pos.left + target.get(0).offsetWidth - 40
             : pos.left - 20;
-            
+
         err.css({
           position: "absolute",
           top: pos.top - err.get(0).offsetHeight,
           left: left
         });
       }
-      
+
       if ( zIndex ) {
         err.css("zIndex", zIndex);
       }
@@ -449,7 +449,7 @@
         id = _t.attr("id"),
         txt = "",
         _this = this;
-      
+
       if ( _t.hasClass("chkgroup") ) {
         var groupInputs = $(_this.conf.groupInputs, t);
         groupInputs.each(function(i) {
@@ -472,7 +472,7 @@
           if ( c.match(/chkmax/i) && CL.match(/chkmax(\d+)/i) ) {
             msg = RegExp.$1 + msg;
           }
-          
+
           if( fnConfirmation(err) ) {
             err(t, id, _this.conf.errMsgPrefix + msg);
           } else {
@@ -528,7 +528,7 @@
           }
         }
       }
-      
+
       if ( !check.isError ) {
         if ( fnConfirmation(ok) ) {
           ok(t, id);
@@ -570,7 +570,7 @@
   function randomInt() {
     return Math.floor(Math.random()*10)+1;
   }
-  
+
   // Extense the namespace of jQuery as method
   // This function returns instance
   $.fn.exValidation = function(options) {
